@@ -24,32 +24,34 @@ public class Estudiante {
       this.conn = conn; 
   }
 
-  public void agregarEstudiante(String correo, String nombre, int edad, Vector<Integer> vecCursos) {
+  public boolean agregarEstudiante(String correo, String nombre, String escuela, int edad, Vector<Integer> vecCursos) {
       try {
-         String s = "INSERT INTO estudiante VALUES('"+correo+"','"+nombre+"',"+edad+")";
+         String s = "INSERT INTO estudiante VALUES('"+correo+"','"+nombre+"','"+escuela+"',"+edad+")";
          stmt.executeUpdate(s);
          for(int i=0; i<vecCursos.size(); i++){
             this.agregarCurso(correo,vecCursos.elementAt(i));
-         } 
-      } catch (SQLException e) {System.out.println ("Cannot execute agregarEstudiante()" + e);}
+         }
+         return true;
+      } catch (SQLException e) {
+          System.out.println ("Cannot execute agregarEstudiante()" + e);
+          return false;
+      }
   }
 
-  public void agregarCurso(String correo, int idCurso) {
+  public boolean agregarCurso(String correo, int idCurso) {
       try {
          String s = "INSERT INTO estudiantecurso VALUES('"+correo+"','"+idCurso+"')";
          stmt.executeUpdate(s); 
-      } catch (SQLException e) {System.out.println ("Cannot execute agregarCurso()" + e);}
+         return true;
+      } catch (SQLException e) {
+          System.out.println ("Cannot execute agregarCurso()" + e);
+          return false;
+      }
   }
 
   public Vector<Integer> obtenerCursos(String correo) {
       try{
-          /*SELECT * FROM curso
-            WHERE idCurso IN (
-              SELECT idCurso
-              FROM estudiantecurso
-              WHERE correoEstudiante = "mario"
-            );*/
-            Vector<Integer> vecCursos = new Vector<Integer>();
+           Vector<Integer> vecCursos = new Vector<Integer>();
            stmt.executeQuery ("SELECT * FROM curso WHERE idCurso IN (SELECT idCurso FROM estudiantecurso WHERE correoEstudiante = '"+correo+"') ");
            ResultSet rs = stmt.getResultSet();
            while(rs.next()) {
