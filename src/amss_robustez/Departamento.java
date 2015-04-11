@@ -1,18 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Analisis y modelacion de sistemas de software
+ * Prof. Guillermo Jimenez
+ * Actividad: Codificacion de diagrama de rosbustez
+ * (Asignada el martes 7 de abril de 2014)
+ *
+ * Autores: Eduardo Serna y Mario Sergio Fuentes
  */
 
 package amss_robustez;
 
-/**
- *
- * @author E15
- */
 public class Departamento {
-   private transient Conexion conn;
-   public Departamento(Conexion conn){
-      this.conn = conn; 
-  }
+    private transient Conexion conn;
+    
+    //Constructor para inicializar la conexion a la base de datos
+    public Departamento(Conexion conn){
+        this.conn = conn; 
+    }
+    
 }
